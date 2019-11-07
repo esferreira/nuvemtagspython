@@ -10,7 +10,9 @@ import cloudtags
 class Application:
 	def __init__(self, master=None):
 		global a
+		global b
 		self.a = ""
+		self.b = "black"
 		self.fontePadrao = ("Arial", "10")
 		self.primeiroContainer = Frame(master)
 		self.primeiroContainer["pady"] = 10
@@ -28,9 +30,23 @@ class Application:
 		self.quartoContainer["pady"] = 20
 		self.quartoContainer.pack()
 
-		self.titulo = Label(self.primeiroContainer, text="Seu desejo é uma ordem!")
+		self.titulo = Label(self.primeiroContainer, text="Gerador de Nuvem de Palavras")
 		self.titulo["font"] = ("Arial", "10", "bold")
 		self.titulo.pack()
+		
+		self.fundoNuvem = Label(self.primeiroContainer, text="Tema Dia/Noite")
+		self.fundoNuvem["font"] = ("Arial", "10", "bold")
+		self.fundoNuvem.pack()
+		
+		self.opcaoUM = Radiobutton(self.primeiroContainer, text="Dia  ", variable=var, value=1)
+		self.opcaoUM["font"] = ("Arial", "10", "bold")
+		self.opcaoUM["command"] = self.sel
+		self.opcaoUM.pack( anchor = N )
+
+		self.opcaoDois = Radiobutton(self.primeiroContainer, text="Noite", variable=var, value=2)
+		self.opcaoDois["font"] = ("Arial", "10", "bold")
+		self.opcaoDois["command"] = self.sel
+		self.opcaoDois.pack( anchor = N ) 
 
 		self.nomeLabel = Label(self.segundoContainer,text="Colar URL aqui.: ", font=self.fontePadrao)
 		self.nomeLabel.pack(side=LEFT)
@@ -108,13 +124,17 @@ class Application:
 		print("Gerar nuvem de tags")
 		string = self.url.get()
 		text = open(string,'r').read()
-		cloudtags.gerarNuvemTagss(text)
+		cloudtags.gerarNuvemTagss(text,self.b)
 		self.url.delete(0, "end")
 		self.url.insert(0, "")
+	
+	def sel(self):
+		 self.b = var.get()
 
 
 
 root = Tk()
+var = IntVar()
 root.title('Aplicativo para Geração de Nuvem de Palavras')
 
 Application(root)

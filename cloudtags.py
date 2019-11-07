@@ -8,10 +8,12 @@ from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 from unidecode import unidecode
 import webscrapin01
-
-#text = open('20890-discurso-do-presidente-jair-bolsonaro-na-abertura-da-74-assembleia-geral-das-nacoes-unidas-nova-york-24-de-setembro-de-2019.txt','r').read()
     
-def gerarNuvemTagss(text):
+def gerarNuvemTagss(text, background):
+	if background == 1:
+		dia_noite = 'white'
+	else:
+		dia_noite = 'black'
 	if webscrapin01.proxyy.lower() == 'y':
 		nltk.set_proxy('http://'+webscrapin01.user_proxy+':'+webscrapin01.pass_proxy+'@10.251.250.250:3128')
 	nltk.download('punkt')
@@ -37,10 +39,8 @@ def gerarNuvemTagss(text):
 	# converter a lista de palavras num texto
 	review = ' '.join(palavras_sem_stopwords)
 	# gerar a nuvem de palavras
-	wordcloud = WordCloud(width = 1366, height = 768).generate(str(review))
+	wordcloud = WordCloud(width = 1366, height = 768, background_color=dia_noite).generate(str(review))
 	plt.figure(figsize=(12,6))
 	plt.imshow(wordcloud,interpolation='lanczos')
 	plt.axis("off")
 	plt.show()
-	
-#gerarNuvemTags(text)
