@@ -13,82 +13,36 @@ class Application:
 		global b
 		self.a = ""
 		self.b = "black"
-		self.fontePadrao = ("Arial", "10")
-		self.primeiroContainer = Frame(master)
-		self.primeiroContainer["pady"] = 10
-		self.primeiroContainer.pack()
 
-		self.segundoContainer = Frame(master)
-		self.segundoContainer["padx"] = 20
-		self.segundoContainer.pack()
-
-		self.terceiroContainer = Frame(master)
-		self.terceiroContainer["pady"] = 20
-		self.terceiroContainer.pack()
+		self.nomeLabel = Label(root, text="Colar URL aqui.: ")
+		self.nomeLabel.grid(row=0,column=0,sticky='e')
 		
-		self.quartoContainer = Frame(master)
-		self.quartoContainer["pady"] = 20
-		self.quartoContainer.pack()
-
-		self.titulo = Label(self.primeiroContainer, text="Gerador de Nuvem de Palavras")
-		self.titulo["font"] = ("Arial", "10", "bold")
-		self.titulo.pack()
-		
-		self.fundoNuvem = Label(self.primeiroContainer, text="Tema Dia/Noite")
-		self.fundoNuvem["font"] = ("Arial", "10", "bold")
-		self.fundoNuvem.pack()
-		
-		self.opcaoUM = Radiobutton(self.primeiroContainer, text="Dia  ", variable=var, value=1)
-		self.opcaoUM["font"] = ("Arial", "10", "bold")
-		self.opcaoUM["command"] = self.sel
-		self.opcaoUM.pack( anchor = N )
-
-		self.opcaoDois = Radiobutton(self.primeiroContainer, text="Noite", variable=var, value=2)
-		self.opcaoDois["font"] = ("Arial", "10", "bold")
-		self.opcaoDois["command"] = self.sel
-		self.opcaoDois.pack( anchor = N ) 
-
-		self.nomeLabel = Label(self.segundoContainer,text="Colar URL aqui.: ", font=self.fontePadrao)
-		self.nomeLabel.pack(side=LEFT)
-
-		self.url = Entry(self.segundoContainer)
-		self.url["width"] = 100
-		self.url["font"] = self.fontePadrao
+		self.url = Entry(root,width=100)
 		self.url.focus_set()
-		self.url.pack(side=LEFT)
+		self.url.grid(row=0,column=1,padx=2,pady=2,sticky='we',columnspan=9)
 
-		self.buscar = Button(self.terceiroContainer)
-		self.buscar["text"] = "Download"
-		self.buscar["font"] = ("Calibri", "10")
-		self.buscar["width"] = 12
-		self.buscar["command"] = self.buscarDiscurso
-		self.buscar.pack(side=LEFT)
+		self.fundoNuvem = Label(root,text="Escolher Tema.: ")
+		self.fundoNuvem.grid(row=1,column=1,sticky='w')
+		
+		self.opcaoUM = Radiobutton(root,text="Dia",variable=var,value=1,command=self.sel)
+		self.opcaoUM.grid(row=2,column=1, sticky='w')
+		
+		self.opcaoDois = Radiobutton(root,text="Noite",variable=var,value=2,command=self.sel)
+		self.opcaoDois.grid(row=2,column=2, sticky='w')
 
-		self.sair = Button(self.terceiroContainer)
-		self.sair["text"] = "Sair"
-		self.sair["font"] = ("Calibri", "10")
-		self.sair["width"] = 5
-		self.sair["command"] = self.sairExit
-		self.sair.pack (side=RIGHT)
+		self.buscar = Button(root, text="Download",command=self.buscarDiscurso)
+		self.buscar.grid(row=0,column=10,sticky='e'+'w',padx=2,pady=2)
 		
-		self.recuperarArquivo = Button(self.terceiroContainer)
-		self.recuperarArquivo["text"] = "Abrir"
-		self.recuperarArquivo["font"] = ("Calibri", "10")
-		self.recuperarArquivo["width"] = 10
-		self.recuperarArquivo["command"] = self.abrirArquivo
-		self.recuperarArquivo.pack (side=LEFT)
+		self.recuperarArquivo = Button(root, text="Abrir",command=self.abrirArquivo)
+		self.recuperarArquivo.grid(row=1,column=10,sticky='e'+'w',padx=2)
 		
-		self.gerarNuvemTags = Button(self.terceiroContainer)
-		self.gerarNuvemTags["text"] = "Gerar Nuvem de Tags"
-		self.gerarNuvemTags["font"] = ("Calibri", "10")
-		self.gerarNuvemTags["width"] = 20
-		self.gerarNuvemTags["command"] = self.gerarNuvemTagsX
-		self.gerarNuvemTags.pack (side=LEFT)
+		self.gerarNuvemTags = Button(root, text="Gerar Nuvem de Tags",command=self.gerarNuvemTagsX)
+		self.gerarNuvemTags.grid(row=2,column=10,sticky='e'+'w',padx=2)
 		
-		self.mensagem = Label(self.quartoContainer, text="", font=self.fontePadrao)
-		self.mensagem.pack()
-
-	#Método buscar discurso
+		self.sair = Button(root, text="Sair",command=self.sairExit)
+		self.sair.grid(row=3,column=10,sticky='e'+'w',padx=2)
+		
+		#Método buscar discurso
 	def buscarDiscurso(self):
 		string = self.url.get()
 		documento = string.split('/')
@@ -132,10 +86,8 @@ class Application:
 		 self.b = var.get()
 
 
-
 root = Tk()
 var = IntVar()
-root.title('Aplicativo para Geração de Nuvem de Palavras')
-
+root.title("Gerador de Nuvem de Palavras")
 Application(root)
 root.mainloop()
