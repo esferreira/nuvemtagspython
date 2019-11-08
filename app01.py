@@ -80,7 +80,7 @@ class Application:
 	def gerarNuvemTagsX(self):
 		print("Gerar nuvem de tags")
 		string = self.url.get()
-		text = open(string,'r', encoding="utf-8").read()
+		text = open(string,'r', encoding="utf-8", errors="ignore").read()
 		cloudtags.gerarNuvemTagss(text,self.b)
 		self.url.delete(0, "end")
 		self.url.insert(0, "")
