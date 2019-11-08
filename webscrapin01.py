@@ -37,7 +37,7 @@ def getDiscurso(url, documento):
 			abs_filename = os.path.join(script_directory, documento+'.txt')
 			print(abs_filename)
 			
-			arquivo = open(abs_filename, "w", encoding="utf-8")
+			arquivo = open(abs_filename, "w", encoding="utf-8", errors="ignore")
 		
 	try:
 		conn = req.urlopen(url)
