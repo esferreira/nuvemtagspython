@@ -42,6 +42,9 @@ class Application:
 		self.sair = Button(root, text="Sair",command=self.sairExit)
 		self.sair.grid(row=3,column=10,sticky='e'+'w',padx=2)
 		
+		self.mensagem = Label(root, text="")
+		self.mensagem.grid(row=3,column=1,sticky='e'+'w',columnspan=9)
+		
 		#Método buscar discurso
 	def buscarDiscurso(self):
 		string = self.url.get()
