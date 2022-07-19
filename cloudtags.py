@@ -39,7 +39,7 @@ def gerarNuvemTagss(text, background):
 	# converter a lista de palavras num texto
 	review = ' '.join(palavras_sem_stopwords)
 	# gerar a nuvem de palavras
-	wordcloud = WordCloud(width = 1366, height = 768, background_color=dia_noite).generate(str(review))
+	wordcloud = WordCloud(width = 1366, height = 768, background_color=dia_noite, collocations=False).generate(str(review))
 	plt.figure(figsize=(12,6))
 	plt.imshow(wordcloud,interpolation='lanczos')
 	plt.axis("off")
